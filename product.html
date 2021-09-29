@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         .hidden{
+            display: none;
+        }
+        .visible{
+            display: block;
+        }
+        .post-container{
+            padding: 1rem;
+            margin-bottom: 1rem;
+            outline: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <form id="input-container">
+        <div><input name="title" type="text" placeholder="title"></div>
+        <div><input name="body" type="text" placeholder="body"></div>
+        <div><input type="submit" value="Submit"></div>
+    </form>
+
+    <div id="loading" class="hidden">looding...</div>
+
+    <div id="results">
+        
+    </div>
+    <div id="pagination">
+        <!-- Prev -->
+        <!-- current -->
+        <!-- Next -->
+    </div>
+
+    <script type="text/javascript">
+       fetch("http://localhost:3000/products")
+            .then(function (response) {
+                console.log(response)
+                return response.json()
+            })
+            .then(function (response) {
+                console.log(response);
+                Product(response)
+
+            })
+            .catch(function (err) {
+
+            })
+            function Product(data){
+            const box = document.getElementById("results");
+            box.innerHTML = null;
+            const div = document.createElement("div");
+            for(var i=1; i<data.length; i++){
+                const card = createProduct(data[i][0]);
+                div.append(card);
+            }
+            box.append(div);
+        }
+        var c =0;
+        function createProduct(pdata) {
+            const container = document.createElement("div");
+            container.className = "post-container";
+            const id = document.createElement("h3");
+            id.textContent = "product id. :-  "+pdata.id;
+            const name = document.createElement("h3");
+            name.textContent = "product name :-  " +pdata.name;
+            const price = document.createElement("h3");
+            price.textContent ="product price :- "+pdata.price;
+            const currency = document.createElement("h3");
+            currency.textContent = "Product Currency :- "+pdata.currency;
+           const qty = document.createElement("h3");
+            qty.textContent =pdata.quantity;
+            
+            container.append(id,name,price,currency,qty);
+            return container;
+            
+        }
+
+
+
+     
+        
+    </script>
+</body>
+</html>
