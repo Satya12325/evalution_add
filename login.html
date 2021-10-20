@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+</head>
+<body>
+    <form id="login-form">
+        <div class="form-input"><input type="text" placeholder="Username" name="username" id="login"/></div>
+        <div class="form-input"><input type="password" placeholder="Password" name="password" id="password"/></div>
+        <div class="form-input"><input type="submit" id="submit"/></div>
+    </form>
+</body>
+<script type="text/javascript">
+ window.addEventListener("load", () => {
+        const find = document.getElementById("submit");
+        find.addEventListener("click", handleLogin)
+    })
+
+    
+    function handleLogin(){
+        const login = document.getElementById("login");
+        const password = document.getElementById("password");
+        const arr = ["satya", "brata", "Albert", "Nurupul", "Jaswant"]
+        for(var i =0; i<arr.length; i++){
+        if(login.value !== arr[i]){
+            
+            
+        }
+        else{
+            location.replace("http://127.0.0.1:5501/home.html");
+            alert("You are Successfully logging in")
+            
+        }
+
+        }
+    }
+   
+
+</script>
+</html>

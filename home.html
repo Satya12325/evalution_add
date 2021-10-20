@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            background: rgb(238, 174, 202);
+            background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(173, 148, 233, 1) 62%);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        #result {
+            width: 500px;
+            margin: auto;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>Git hub Search App</h1>
+    </div>
+    <div class="container">
+        <input type="text" id="search" placeholder="User name" />
+        <button id="find">Search</button>
+    </div>
+    <div id="result"></div>
+</body>
+<script type="text/javascript">
+    window.addEventListener("load", () => {
+        const find = document.getElementById("find");
+        find.addEventListener("click", handleSearch)
+    })
+
+    const handleSearch = async () => {
+        var search = document.getElementById("search").value;
+        const searchText = search.split(" ").join("");
+        try {
+            let res = await fetch(`https://api.github.com/users/${searchText}`)
+            let data = await res.json();
+            console.log(data);
+            var result = document.getElementById("result");
+            result.innerHTML = "";
+            result.innerHTML = `
+            <div class = "user-data">
+               <a target ="_blank" href="https://www.github.com/${searchText}" ><img src="${data.avatar_url}"/> </a>
+               <div class="center">
+                <ul>
+                <h2>User name : ${data.name}</h2>
+                <li>Location : ${data.location}</li> 
+                <li>Followers : ${data.followers}</li>   
+                </ul>
+                </div> 
+               </div>
+            `
+        } catch (err) {
+            console.log(err);
+        }
+    }
+</script>
+
+</html>
